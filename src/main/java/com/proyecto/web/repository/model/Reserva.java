@@ -1,8 +1,6 @@
 package com.proyecto.web.repository.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -38,6 +35,14 @@ public class Reserva {
 
 	@Column(name = "rese_estado")
 	private Character estado;
+
+	@ManyToOne
+	@JoinColumn(name = "clie_id")
+	private Cliente clienteReserva;
+
+	@ManyToOne
+	@JoinColumn(name = "vehi_id")
+	private Vehiculo vehiculoReservado;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pago_id")
@@ -83,12 +88,35 @@ public class Reserva {
 		this.estado = estado;
 	}
 
+	public Cliente getClienteReserva() {
+		return clienteReserva;
+	}
+
+	public void setClienteReserva(Cliente clienteReserva) {
+		this.clienteReserva = clienteReserva;
+	}
+
 	public Pago getPagos() {
 		return pagos;
 	}
 
 	public void setPagos(Pago pagos) {
 		this.pagos = pagos;
+	}
+
+	public Vehiculo getVehiculoReservado() {
+		return vehiculoReservado;
+	}
+
+	public void setVehiculoReservado(Vehiculo vehiculoReservado) {
+		this.vehiculoReservado = vehiculoReservado;
+	}
+
+	@Override
+	public String toString() {
+		return "Reserva [id=" + id + ", numero=" + numero + ", fechaInicio=" + fechaInicio + ", fechaFinal="
+				+ fechaFinal + ", estado=" + estado + ", clienteReserva=" + clienteReserva + ", vehiculoReservado="
+				+ vehiculoReservado + ", pagos=" + pagos + "]";
 	}
 
 }

@@ -16,6 +16,7 @@ import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
 import com.proyecto.web.service.TO.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.TO.ReporteReservasTO;
 import com.proyecto.web.service.TO.ReservaTO;
 
 @Service
@@ -89,6 +90,11 @@ public class ReservaServiceImpl implements IReservaService {
 		reserva.setPagos(pago);
 		
 		this.insertar(reserva);
+	}
+
+	@Override
+	public List<ReporteReservasTO> reporteReservas(LocalDate fechaInicio, LocalDate fechaFinal) {
+		return this.iReservaRepo.reporteReservas(fechaInicio.atStartOfDay(), fechaFinal.atStartOfDay());
 	}
 
 }

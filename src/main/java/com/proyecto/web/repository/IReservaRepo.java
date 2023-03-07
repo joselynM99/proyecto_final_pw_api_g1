@@ -1,10 +1,13 @@
 package com.proyecto.web.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.TO.ReporteReservasTO;
+
 
 public interface IReservaRepo {
 
@@ -20,7 +23,8 @@ public interface IReservaRepo {
 
 	List<Reserva> buscarPorVehiculo(Vehiculo vehiculo);
 
-
+	List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal);
+	
 	List<Reserva> todasReservas();
 
 }

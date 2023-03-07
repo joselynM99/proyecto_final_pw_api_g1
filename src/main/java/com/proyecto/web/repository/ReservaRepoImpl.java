@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.TO.ReporteReservasTO;
+
 
 @Transactional
 @Repository
@@ -63,6 +65,16 @@ public class ReservaRepoImpl implements IReservaRepo {
 	@Override
 	public List<Reserva> todasReservas() {
 		TypedQuery<Reserva> myQuery = this.entityManager.createQuery("SELECT r  FROM Reserva r ", Reserva.class);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
+		TypedQuery<ReporteReservasTO> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.proyecto.web.service.TO.ReporteReservasTO(r.id,r.numero,r.fechaInicio,r.fechaFinal,r.estado,c.apellido,c.cedula,v.placa,v.marca,v.valorPorDia) FROM Reserva r JOIN r.clienteReserva c JOIN r.vehiculoReservado v  WHERE r.fechaInicio>=:fechaInicio AND  r.fechaFinal<=:fechaFinal",
+				ReporteReservasTO.class);
+		myQuery.setParameter("fechaInicio", fechaInicio);
+		myQuery.setParameter("fechaFinal", fechaFinal);
 		return myQuery.getResultList();
 	}
 

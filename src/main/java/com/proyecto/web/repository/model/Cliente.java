@@ -1,6 +1,7 @@
-package com.proyecto.web.modelo;
+package com.proyecto.web.repository.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,9 +36,8 @@ public class Cliente {
 	@Column(name = "clie_cedula")
 	private String cedula;
 
-	@DateTimeFormat(iso = ISO.DATE)
 	@Column(name = "clie_fecha_nacimiento", columnDefinition = "TIMESTAMP")
-	private LocalDate fechaNacimiento;
+	private LocalDateTime fechaNacimiento;
 
 	@Column(name = "clie_genero")
 	private String genero;
@@ -81,11 +81,11 @@ public class Cliente {
 		this.cedula = cedula;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public LocalDateTime getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

@@ -1,4 +1,4 @@
-package com.proyecto.web.modelo;
+package com.proyecto.web.repository.model;
 
 import java.math.BigDecimal;
 
