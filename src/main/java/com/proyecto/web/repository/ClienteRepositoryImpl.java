@@ -33,7 +33,12 @@ public class ClienteRepositoryImpl implements IClienteRepository{
 				.createQuery("SELECT c FROM Cliente c WHERE c.cedula=:cedula", Cliente.class);
 		myQuery.setParameter("cedula", cedula);
 
-		return myQuery.getSingleResult();
+		try {
+			return myQuery.getSingleResult();
+		} catch (Exception e) {
+
+			return null;
+		}
 	}
 
 }

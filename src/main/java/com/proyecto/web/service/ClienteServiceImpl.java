@@ -24,6 +24,10 @@ public class ClienteServiceImpl implements IClienteService{
 		this.clienteRepository.actualizar(this.convertirClienteActualizarTOACliente(cliente));
 		
 	}
+	@Override
+	public ClienteActualizarTO encontrarPorCedula(String cedula) {
+		return this.convertirClienteAClienteActualizarTO(this.clienteRepository.buscarPorCedula(cedula));
+	}
 	
 	
 	private ClienteTO convertirClienteAClienteTO(Cliente cliente) {
@@ -50,6 +54,18 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	private Cliente convertirClienteActualizarTOACliente(ClienteActualizarTO cliente) {
 		Cliente c = new Cliente();
+		c.setApellido(cliente.getApellido());
+		c.setCedula(cliente.getCedula());
+		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setGenero(cliente.getGenero());
+		c.setNombre(cliente.getNombre());
+		c.setTipoRegistro(cliente.getTipoRegistro());
+		c.setId(cliente.getId());
+		return c;
+	}
+	
+	private ClienteActualizarTO convertirClienteAClienteActualizarTO(Cliente cliente) {
+		ClienteActualizarTO c = new ClienteActualizarTO();
 		c.setApellido(cliente.getApellido());
 		c.setCedula(cliente.getCedula());
 		c.setFechaNacimiento(cliente.getFechaNacimiento());

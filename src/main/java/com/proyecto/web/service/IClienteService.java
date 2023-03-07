@@ -9,4 +9,6 @@ public interface IClienteService {
 	
 	public void actualizar(ClienteActualizarTO cliente);
 
+	ClienteActualizarTO encontrarPorCedula(String cedula);
+
 }
