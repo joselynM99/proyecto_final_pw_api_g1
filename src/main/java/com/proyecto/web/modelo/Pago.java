@@ -38,7 +38,7 @@ public class Pago {
 	@Column(name = "pago_tarjeta")
 	private String tarjeta;
 
-	@OneToOne(mappedBy = "pagos", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "pago", cascade = CascadeType.ALL)
 	private Reserva pagoReserva;
 
 	public Integer getId() {

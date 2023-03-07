@@ -46,7 +46,7 @@ public class Reserva {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pago_id")
-	private Pago pagos;
+	private Pago pago;
 
 	public Integer getId() {
 		return id;
@@ -96,12 +96,12 @@ public class Reserva {
 		this.clienteReserva = clienteReserva;
 	}
 
-	public Pago getPagos() {
-		return pagos;
+	public Pago getPago() {
+		return pago;
 	}
 
-	public void setPagos(Pago pagos) {
-		this.pagos = pagos;
+	public void setPagos(Pago pago) {
+		this.pago = pago;
 	}
 
 	public Vehiculo getVehiculoReservado() {
@@ -112,11 +112,6 @@ public class Reserva {
 		this.vehiculoReservado = vehiculoReservado;
 	}
 
-	@Override
-	public String toString() {
-		return "Reserva [id=" + id + ", numero=" + numero + ", fechaInicio=" + fechaInicio + ", fechaFinal="
-				+ fechaFinal + ", estado=" + estado + ", clienteReserva=" + clienteReserva + ", vehiculoReservado="
-				+ vehiculoReservado + ", pagos=" + pagos + "]";
-	}
+
 
 }
