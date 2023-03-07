@@ -39,6 +39,15 @@ public class Reserva {
 	@Column(name = "rese_estado")
 	private Character estado;
 
+	@ManyToOne
+	@JoinColumn(name = "clie_id")
+	private Cliente clienteReserva;
+	
+	@ManyToOne
+	@JoinColumn(name = "vehi_id")
+	private Vehiculo vehiculoReservado;
+	
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pago_id")
 	private Pago pagos;
@@ -90,5 +99,23 @@ public class Reserva {
 	public void setPagos(Pago pagos) {
 		this.pagos = pagos;
 	}
+
+	public Cliente getClienteReserva() {
+		return clienteReserva;
+	}
+
+	public void setClienteReserva(Cliente clienteReserva) {
+		this.clienteReserva = clienteReserva;
+	}
+
+	public Vehiculo getVehiculoReservado() {
+		return vehiculoReservado;
+	}
+
+	public void setVehiculoReservado(Vehiculo vehiculoReservado) {
+		this.vehiculoReservado = vehiculoReservado;
+	}
+	
+	
 
 }

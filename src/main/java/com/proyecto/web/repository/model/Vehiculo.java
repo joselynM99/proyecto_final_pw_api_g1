@@ -3,11 +3,13 @@ package com.proyecto.web.repository.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -48,7 +50,9 @@ public class Vehiculo {
 	@Column(name = "vehi_estado")
 	private String estado;
 
-
+	@OneToMany(mappedBy = "vehiculoReservado", cascade = CascadeType.ALL)
+	private List<Reserva> reservaVehiculo;
+	
 	// gets and sets
 	public Integer getId() {
 		return id;
@@ -130,11 +134,6 @@ public class Vehiculo {
 		this.estado = estado;
 	}
 
-	@Override
-	public String toString() {
-		return "Vehiculo [id=" + id + ", placa=" + placa + ", modelo=" + modelo + ", marca=" + marca
-				+ ", anioFabricacion=" + anioFabricacion + ", pais=" + pais + ", cilindraje=" + cilindraje + ", avaluo="
-				+ avaluo + ", valorPorDia=" + valorPorDia + ", estado=" + estado + "]";
-	}
+	
 
 }
