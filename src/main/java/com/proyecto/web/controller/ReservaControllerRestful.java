@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.web.service.IReservaService;
-import com.proyecto.web.service.TO.ReporteReservasTO;
-import com.proyecto.web.service.TO.ReservaTO;
+import com.proyecto.web.service.to.ReporteReservasTO;
+import com.proyecto.web.service.to.ReservaTO;
+import com.proyecto.web.service.to.RespuestaReservaTO;
 
 @RestController
 @CrossOrigin
@@ -24,15 +26,15 @@ public class ReservaControllerRestful {
 	@Autowired
 	private IReservaService iReservaService;
 
-	@PostMapping
-	private void registrarReserva(@RequestBody ReservaTO reservaTO) {
-		this.iReservaService.registrarReserva(reservaTO);
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	private RespuestaReservaTO registrarReserva(@RequestBody ReservaTO reservaTO) {
+		return this.iReservaService.registrarReserva(reservaTO);
 	}
 	
-	@GetMapping
-	private List<ReporteReservasTO> reporteReservasFechas(@RequestParam("inicio") LocalDate inicio,
-			@RequestParam("fin") LocalDate fin) {
-		return this.iReservaService.reporteReservas(inicio, fin);
+	@GetMapping()
+	private List<ReporteReservasTO> reporteReservasFechas(@RequestParam("inicio") String inicio,
+			@RequestParam("fin") String fin) {
+		return this.iReservaService.reporteReservas(LocalDate.parse(inicio), LocalDate.parse(fin));
 	}
 
 }

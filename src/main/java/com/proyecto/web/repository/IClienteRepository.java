@@ -1,6 +1,6 @@
 package com.proyecto.web.repository;
 
-import com.proyecto.web.modelo.Cliente;
+import com.proyecto.web.repository.model.Cliente;
 
 public interface IClienteRepository {
 	

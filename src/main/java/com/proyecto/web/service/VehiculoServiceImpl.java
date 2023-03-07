@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.web.repository.IVehiculoRepo;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.TO.ParametrosBuscarVehiculoTO;
-import com.proyecto.web.service.TO.VehiculoDisponiblesTO;
+import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @Service
 public class VehiculoServiceImpl implements IVehiculoService {

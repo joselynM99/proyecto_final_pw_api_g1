@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.web.service.IVehiculoService;
-import com.proyecto.web.service.TO.ParametrosBuscarVehiculoTO;
-import com.proyecto.web.service.TO.VehiculoDisponiblesTO;
+import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @RestController
 @CrossOrigin

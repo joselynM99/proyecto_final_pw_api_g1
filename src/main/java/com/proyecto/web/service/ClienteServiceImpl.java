@@ -3,8 +3,9 @@ package com.proyecto.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.web.modelo.Cliente;
+
 import com.proyecto.web.repository.IClienteRepository;
+import com.proyecto.web.repository.model.Cliente;
 import com.proyecto.web.service.to.ClienteActualizarTO;
 import com.proyecto.web.service.to.ClienteTO;
 
@@ -30,7 +31,7 @@ public class ClienteServiceImpl implements IClienteService{
 		ClienteTO c = new ClienteTO();
 		c.setApellido(cliente.getApellido());
 		c.setCedula(cliente.getCedula());
-		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setFechaNacimiento(cliente.getFechaNacimiento().toLocalDate());
 		c.setGenero(cliente.getGenero());
 		c.setNombre(cliente.getNombre());
 		c.setTipoRegistro(cliente.getTipoRegistro());
@@ -41,7 +42,7 @@ public class ClienteServiceImpl implements IClienteService{
 		Cliente c = new Cliente();
 		c.setApellido(cliente.getApellido());
 		c.setCedula(cliente.getCedula());
-		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setFechaNacimiento(cliente.getFechaNacimiento().atStartOfDay());
 		c.setGenero(cliente.getGenero());
 		c.setNombre(cliente.getNombre());
 		c.setTipoRegistro(cliente.getTipoRegistro());
@@ -52,7 +53,7 @@ public class ClienteServiceImpl implements IClienteService{
 		Cliente c = new Cliente();
 		c.setApellido(cliente.getApellido());
 		c.setCedula(cliente.getCedula());
-		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setFechaNacimiento(cliente.getFechaNacimiento().atStartOfDay());
 		c.setGenero(cliente.getGenero());
 		c.setNombre(cliente.getNombre());
 		c.setTipoRegistro(cliente.getTipoRegistro());

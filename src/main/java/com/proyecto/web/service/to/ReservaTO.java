@@ -1,4 +1,4 @@
-package com.proyecto.web.service.TO;
+package com.proyecto.web.service.to;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

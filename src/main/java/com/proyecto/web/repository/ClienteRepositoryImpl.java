@@ -2,7 +2,7 @@ package com.proyecto.web.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.proyecto.web.modelo.Cliente;
+import com.proyecto.web.repository.model.Cliente;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
