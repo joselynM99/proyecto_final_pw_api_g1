@@ -43,7 +43,7 @@ public class Cliente {
 	private String genero;
 
 	@Column(name = "clie_registro")
-	private Character tipoRegistro;
+	private String tipoRegistro;
 
 	@OneToMany(mappedBy = "clienteReserva", cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
@@ -105,11 +105,11 @@ public class Cliente {
 		this.reservas = reservas;
 	}
 
-	public Character getTipoRegistro() {
+	public String getTipoRegistro() {
 		return tipoRegistro;
 	}
 
-	public void setTipoRegistro(Character tipoRegistro) {
+	public void setTipoRegistro(String tipoRegistro) {
 		this.tipoRegistro = tipoRegistro;
 	}
 
