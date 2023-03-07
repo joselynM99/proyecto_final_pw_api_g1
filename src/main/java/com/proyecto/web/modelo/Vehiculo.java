@@ -3,6 +3,8 @@ package com.proyecto.web.modelo;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.proyecto.web.service.to.VehiculoTo;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -142,5 +144,19 @@ public class Vehiculo {
 		this.reservaVehiculo = reservaVehiculo;
 	}
 
+	public VehiculoTo toVehiculoTo() {
+        VehiculoTo vehiculoTo = new VehiculoTo();
+        vehiculoTo.setId(this.id);
+        vehiculoTo.setPlaca(this.placa);
+        vehiculoTo.setModelo(this.modelo);
+        vehiculoTo.setMarca(this.marca);
+        vehiculoTo.setAnioFabricacion(this.anioFabricacion);
+        vehiculoTo.setPais(this.pais);
+        vehiculoTo.setCilindraje(this.cilindraje);
+        vehiculoTo.setAvaluo(this.avaluo);
+        vehiculoTo.setValorPorDia(this.valorPorDia);
+        vehiculoTo.setEstado(this.estado);
+        return vehiculoTo;
+    }
 
 }
