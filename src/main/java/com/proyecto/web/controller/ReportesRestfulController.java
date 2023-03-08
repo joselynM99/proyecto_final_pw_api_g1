@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.web.service.IGestorReportesService;
 import com.proyecto.web.service.to.ClienteVIPTO;
+import com.proyecto.web.service.to.ReporteReservasTO;
 import com.proyecto.web.service.to.VehiculoVip;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -56,4 +57,12 @@ public class ReportesRestfulController {
 		
 		return lista;
 	}
+	
+	
+	@GetMapping(path = "/reservas", produces = MediaType.APPLICATION_JSON_VALUE)
+	private List<ReporteReservasTO> reporteReservasFechas(@RequestParam("inicio") String inicio,
+			@RequestParam("fin") String fin) {
+		return this.iGestorReportesService.reporteReservas(LocalDate.parse(inicio), LocalDate.parse(fin));
+	}
+
 }

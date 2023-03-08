@@ -1,19 +1,18 @@
 package com.proyecto.web.repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.to.ReporteReservasTO;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Transactional
 @Repository
@@ -63,6 +62,32 @@ public class ReservaRepoImpl implements IReservaRepo {
 	@Override
 	public List<Reserva> todasReservas() {
 		TypedQuery<Reserva> myQuery = this.entityManager.createQuery("SELECT r  FROM Reserva r ", Reserva.class);
+		return myQuery.getResultList();
+	}
+	
+	@Override
+	public List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
+		TypedQuery<ReporteReservasTO> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.proyecto.web.service.to.ReporteReservasTO(r.id,r.numero,r.fechaInicio,r.fechaFinal,r.estado,c.apellido,c.cedula,v.placa,v.marca,v.valorPorDia) FROM Reserva r JOIN r.clienteReserva c JOIN r.vehiculoReservado v  WHERE r.fechaInicio>=:fechaInicio AND  r.fechaFinal<=:fechaFinal",
+				ReporteReservasTO.class);
+		myQuery.setParameter("fechaInicio", fechaInicio);
+		myQuery.setParameter("fechaFinal", fechaFinal);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+		TypedQuery<Reserva> myQuery = this.entityManager.createQuery(
+				"SELECT r FROM Reserva r JOIN FETCH r.vehiculoReservado v WHERE v.placa=:placa AND ((r.fechaInicio <:fechaInicio AND r.fechaFinal>:fechaInicio) "
+						+ "OR (r.fechaInicio <: fechaFin AND r.fechaFinal >=:fechaFin) OR (r.fechaInicio >:fechaInicio AND r.fechaFinal <:fechaFin))",
+				Reserva.class);
+
+		myQuery.setParameter("fechaInicio", fechaInicio);
+
+		myQuery.setParameter("placa", placa);
+
+		myQuery.setParameter("fechaFin", fechaFin);
+
 		return myQuery.getResultList();
 	}
 

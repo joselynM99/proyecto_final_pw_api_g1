@@ -3,7 +3,7 @@ package com.proyecto.web.service.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ParametrosBuscarVehiculoTO implements Serializable{
+public class ResultadoDisponibilidadVehiculoTO implements Serializable{
 
 	/**
 	 * 

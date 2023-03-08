@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.web.repository.IVehiculoRepo;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @Service
@@ -81,10 +81,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
 	}
 
 	@Override
-	public ParametrosBuscarVehiculoTO verificarDiponibilidad(String inicio, String fin, String placa) {
+	public ResultadoDisponibilidadVehiculoTO verificarDiponibilidad(String inicio, String fin, String placa) {
 		Vehiculo vehiculo = this.iVehiculoRepo.buscarPorPlaca(placa);
 
-		ParametrosBuscarVehiculoTO temp = new ParametrosBuscarVehiculoTO();
+		ResultadoDisponibilidadVehiculoTO temp = new ResultadoDisponibilidadVehiculoTO();
 		temp.setEstado(vehiculo.getEstado());
 		Integer dias = Period.between(LocalDate.parse(inicio), (LocalDate.parse(fin))).getDays();
 		BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));

@@ -19,7 +19,7 @@ import com.proyecto.web.service.IReservaService;
 import com.proyecto.web.service.IVehiculoService;
 import com.proyecto.web.service.to.ClienteActualizarTO;
 import com.proyecto.web.service.to.ClienteTO;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.ReservaTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
@@ -52,9 +52,9 @@ public class ClienteRestfulController {
 		return this.clienteService.encontrarPorCedula(cedula);
 	}
 	
-
 	@PostMapping(path = "/reservas")
 	private void registrarReserva(@RequestBody ReservaTO reservaTO) {
+		System.out.println(reservaTO.getTarjeta());
 		this.iReservasService.registrarReserva(reservaTO);
 	}
 
@@ -75,7 +75,7 @@ public class ClienteRestfulController {
 	}
 
 	@GetMapping(path = "/vehiculos/porPlaca/{placa}")
-	private ParametrosBuscarVehiculoTO verificarDisponibilidad(@PathVariable("placa") String placa,
+	private ResultadoDisponibilidadVehiculoTO verificarDisponibilidad(@PathVariable("placa") String placa,
 			@RequestParam("inicio") String inicio, @RequestParam("fin") String fin) {
 		return this.iVehiculoService.verificarDiponibilidad(inicio, fin, placa);
 	}

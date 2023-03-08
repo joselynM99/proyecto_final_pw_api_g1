@@ -15,7 +15,8 @@ import com.proyecto.web.repository.IReservaRepo;
 import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
+import com.proyecto.web.service.to.ReporteReservasTO;
 import com.proyecto.web.service.to.ReservaTO;
 
 @Service
@@ -71,7 +72,6 @@ public class ReservaServiceImpl implements IReservaService {
 		reserva.setFechaInicio(reservaTO.getFechaInicio().atStartOfDay());
 		reserva.setNumero(reservaTO.getPlaca() + "--" + reservaTO.getFechaInicio() + "--" + reservaTO.getFechaFinal());
 		
-
 		Vehiculo vehiculo = this.iVehiculoService.buscarPorPlaca(reservaTO.getPlaca());
 		Integer dias = Period.between(reservaTO.getFechaInicio(), reservaTO.getFechaFinal())
 				.getDays();
@@ -87,8 +87,16 @@ public class ReservaServiceImpl implements IReservaService {
 		pago.setValorTotalAPagar(valorTotalAPagar);
 		pago.setPagoReserva(reserva);
 		reserva.setPagos(pago);
+		 System.out.println(reserva.getFechaFinal());
 		
 		this.insertar(reserva);
 	}
+
+	@Override
+	public List<ReporteReservasTO> reporteReservas(LocalDateTime inicio, LocalDateTime fin) {
+		return this.iReservaRepo.reporteReservas(inicio, fin);
+	}
+	
+	
 
 }

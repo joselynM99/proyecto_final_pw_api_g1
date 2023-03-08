@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.to.ReporteReservasTO;
 
 public interface IReservaRepo {
 
@@ -22,5 +23,9 @@ public interface IReservaRepo {
 
 
 	List<Reserva> todasReservas();
+
+	List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin);
+
+	List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal);
 
 }
