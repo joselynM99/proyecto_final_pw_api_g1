@@ -6,9 +6,6 @@ import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jakarta.transaction.Transactional;
-import jakarta.transaction.Transactional.TxType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +13,9 @@ import com.proyecto.web.repository.IVehiculoRepo;
 import com.proyecto.web.repository.model.Vehiculo;
 import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
+import com.proyecto.web.service.to.VehiculoTO;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class VehiculoServiceImpl implements IVehiculoService {
@@ -25,8 +25,8 @@ public class VehiculoServiceImpl implements IVehiculoService {
 
 	@Override
 	@Transactional
-	public void insertar(Vehiculo vehiculo) {
-		this.iVehiculoRepo.insertar(vehiculo);
+	public void insertar(VehiculoTO vehiculo) {
+		this.iVehiculoRepo.insertar(convertirVehiculoTOAVehiculo(vehiculo));
 	}
 
 	@Override
@@ -92,5 +92,22 @@ public class VehiculoServiceImpl implements IVehiculoService {
 		BigDecimal valorTotalAPagar = valorSubTotal.add(valorIVA);
 		temp.setValorTotalPagar(valorTotalAPagar);
 		return temp;
+	}
+	
+	private Vehiculo convertirVehiculoTOAVehiculo(VehiculoTO vehiculo) {
+		Vehiculo vehiculo1=new Vehiculo();
+		vehiculo1.setAnioFabricacion(vehiculo.getAnioFabricacion());
+		vehiculo1.setAvaluo(vehiculo.getAvaluo());
+		vehiculo1.setCilindraje(vehiculo.getCilindraje());
+		vehiculo1.setEstado(vehiculo.getEstado());
+		vehiculo1.setId(vehiculo.getId());
+		vehiculo1.setMarca(vehiculo.getMarca());
+		vehiculo1.setModelo(vehiculo.getModelo());
+		vehiculo1.setPais(vehiculo.getPais());
+		vehiculo1.setPlaca(vehiculo.getPlaca());
+		vehiculo1.setValorPorDia(vehiculo.getValorPorDia());
+		
+		return vehiculo1;
+		
 	}
 }

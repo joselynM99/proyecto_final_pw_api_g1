@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.web.repository.model.Cliente;
-import com.proyecto.web.repository.model.Vehiculo;
 import com.proyecto.web.service.IClienteService;
 import com.proyecto.web.service.IGestorEmpleadoService;
+import com.proyecto.web.service.to.ClienteActualizarTO;
 import com.proyecto.web.service.to.ClienteTO;
+import com.proyecto.web.service.to.VehiculoTO;
 
 @RestController
 @CrossOrigin("http://localhost:8080/")
@@ -40,7 +40,7 @@ public class EmpleadoRestfulController {
 	// Insertar vehiculo
 
 	@PostMapping(path = "/vehiculoNuevo", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public String insertarVehiculo(@RequestBody Vehiculo vehiculo) {
+	public String insertarVehiculo(@RequestBody VehiculoTO vehiculo) {
 		String msj = "Vehiculo ingresado correctamente";
 		try {
 			this.iGestorEmpleadoService.ingresarVehiculo(vehiculo);
@@ -52,25 +52,24 @@ public class EmpleadoRestfulController {
 
 	}
 
-
 	// Buscar Cliente
 
 	@GetMapping(path = "/clientes/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Cliente buscarClientePorId(@PathVariable("id") Integer id) {
+	public ClienteActualizarTO buscarClientePorId(@PathVariable("id") Integer id) {
 
 		return this.iGestorEmpleadoService.buscarPorId(id);
 	}
 
 	// Lista de Clientes por Apellido
 	@GetMapping(path = "/listaClientes/{apellido}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public List<Cliente> buscarClientes(@PathVariable("apellido") String apellido) {
+	public List<ClienteActualizarTO> buscarClientes(@PathVariable("apellido") String apellido) {
 
 		return this.iGestorEmpleadoService.buscarPorApellido(apellido);
 	}
 
 	// Actualizar Cliente
 	@PutMapping(path="/clientes",consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public String actualizarCliente(@RequestBody Cliente cliente) {
+	public String actualizarCliente(@RequestBody ClienteActualizarTO cliente) {
 		String msj = "Cliente actualizado correctamente";
 		try {
 			this.iGestorEmpleadoService.actualizarCliente(cliente);
