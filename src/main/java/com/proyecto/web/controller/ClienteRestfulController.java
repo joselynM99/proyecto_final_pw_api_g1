@@ -38,14 +38,14 @@ public class ClienteRestfulController {
 	private IClienteService clienteService;
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void registrarCliente(@RequestBody ClienteTO cliente) {
-		this.clienteService.registrar(cliente);
+	public boolean registrarCliente(@RequestBody ClienteTO cliente) {
+		return this.clienteService.registrar(cliente);
 	}
 	
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void actualizarCliente(@PathVariable("id") Integer id, @RequestBody ClienteActualizarTO cliente) {
+	public boolean actualizarCliente(@PathVariable("id") Integer id, @RequestBody ClienteActualizarTO cliente) {
 		cliente.setId(id);
-		this.clienteService.actualizar(cliente);
+		return this.clienteService.actualizar(cliente);
 	}
 	
 	@GetMapping(path="/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)

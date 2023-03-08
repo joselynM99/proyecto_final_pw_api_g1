@@ -7,9 +7,9 @@ import com.proyecto.web.repository.model.Cliente;
 public interface IClienteRepo {
 
 	// CRUD
-	void insertar(Cliente cliente);
+	boolean insertar(Cliente cliente);
 
-	void actualizar(Cliente cliente);
+	boolean actualizar(Cliente cliente);
 
 	Cliente buscar(Integer id);
 

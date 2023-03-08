@@ -17,36 +17,44 @@ public class ClienteRepoImpl implements IClienteRepo {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
-	public void insertar(Cliente cliente) {
+	public boolean insertar(Cliente cliente) {
 		this.entityManager.persist(cliente);
+
+		try {
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
-	public void actualizar(Cliente cliente) {
+	public boolean actualizar(Cliente cliente) {
 		this.entityManager.merge(cliente);
+		try {
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
 	public Cliente buscar(Integer id) {
-		// TODO Auto-generated method stub
-		return this.entityManager.find(Cliente.class
-				, id);
+		return this.entityManager.find(Cliente.class, id);
 	}
 
 	@Override
 	public void borrar(Integer id) {
-		// TODO Auto-generated method stub
 		this.entityManager.remove(this.buscar(id));
 	}
 
 	@Override
 	public List<Cliente> buscarPorApellido(String apellido) {
-		// TODO Auto-generated method stub
-		TypedQuery<Cliente>myQuery=this.entityManager.createQuery("select c from Cliente c where c.apellido=:apellido",Cliente.class);
-		myQuery.setParameter("apellido",apellido);
-		
+		TypedQuery<Cliente> myQuery = this.entityManager
+				.createQuery("select c from Cliente c where c.apellido=:apellido", Cliente.class);
+		myQuery.setParameter("apellido", apellido);
+
 		return myQuery.getResultList();
 	}
 
@@ -55,7 +63,7 @@ public class ClienteRepoImpl implements IClienteRepo {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public Cliente buscarPorCedula(String cedula) {
 		TypedQuery<Cliente> myQuery = this.entityManager.createQuery("SELECT c FROM Cliente c WHERE c.cedula=:cedula",
@@ -69,7 +77,7 @@ public class ClienteRepoImpl implements IClienteRepo {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Cliente> buscarPagosClientes() {
 		TypedQuery<Cliente> myQuery = this.entityManager.createQuery(

@@ -17,31 +17,34 @@ public class ClienteServiceImpl implements IClienteService {
 	private IClienteRepo clienteRepository;
 
 	@Override
-	public void registrar(ClienteTO cliente) {
-		this.clienteRepository.insertar(this.convertirClienteTOACliente(cliente));
+	public boolean registrar(ClienteTO cliente) {
+		return this.clienteRepository.insertar(this.convertirClienteTOACliente(cliente));
+
+		
 	}
 
 	@Override
-	public void actualizar(ClienteActualizarTO cliente) {
-		this.clienteRepository.actualizar(this.convertirClienteActualizarTOACliente(cliente));
+	public boolean actualizar(ClienteActualizarTO cliente) {
+		return this.clienteRepository.actualizar(this.convertirClienteActualizarTOACliente(cliente));
 		
+
 	}
+
 	@Override
 	public ClienteActualizarTO encontrarPorCedula(String cedula) {
-		
-		if(this.clienteRepository.buscarPorCedula(cedula)==null) {
+
+		if (this.clienteRepository.buscarPorCedula(cedula) == null) {
 			return null;
-		}else {
+		} else {
 			return this.convertirClienteAClienteActualizarTO(this.clienteRepository.buscarPorCedula(cedula));
 		}
-		
-	} 
-	
+
+	}
+
 	@Override
 	public Cliente buscarPorCedulaCliente(String cedula) {
 		return this.clienteRepository.buscarPorCedula(cedula);
 	}
-	
 
 	@Override
 	public void actualizar(Cliente cliente) {
@@ -64,7 +67,6 @@ public class ClienteServiceImpl implements IClienteService {
 		return this.clienteRepository.buscarPorApellido(apellido);
 	}
 
-
 	private ClienteTO convertirClienteAClienteTO(Cliente cliente) {
 		ClienteTO c = new ClienteTO();
 		c.setApellido(cliente.getApellido());
@@ -75,7 +77,7 @@ public class ClienteServiceImpl implements IClienteService {
 		c.setTipoRegistro(cliente.getTipoRegistro());
 		return c;
 	}
-	
+
 	private Cliente convertirClienteTOACliente(ClienteTO cliente) {
 		Cliente c = new Cliente();
 		c.setApellido(cliente.getApellido());
@@ -86,7 +88,7 @@ public class ClienteServiceImpl implements IClienteService {
 		c.setTipoRegistro(cliente.getTipoRegistro());
 		return c;
 	}
-	
+
 	private Cliente convertirClienteActualizarTOACliente(ClienteActualizarTO cliente) {
 		Cliente c = new Cliente();
 		c.setApellido(cliente.getApellido());
@@ -98,7 +100,7 @@ public class ClienteServiceImpl implements IClienteService {
 		c.setId(cliente.getId());
 		return c;
 	}
-	
+
 	private ClienteActualizarTO convertirClienteAClienteActualizarTO(Cliente cliente) {
 		ClienteActualizarTO c = new ClienteActualizarTO();
 		c.setApellido(cliente.getApellido());
