@@ -26,5 +26,7 @@ public interface IReservaRepo {
 	List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal);
 	
 	List<Reserva> todasReservas();
+	
+	List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
 }

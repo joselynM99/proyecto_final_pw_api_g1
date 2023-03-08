@@ -25,9 +25,11 @@ public interface IReservaService {
 	List<Reserva> buscarPorVehiculo(Vehiculo vehiculo);
 
 	List<Reserva> todasReservas();
-	
+
 	List<ReporteReservasTO> reporteReservas(LocalDate fechaInicio, LocalDate fechaFinal);
 
 	RespuestaReservaTO registrarReserva(ReservaTO reservaTO);
+	
+	List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
 }

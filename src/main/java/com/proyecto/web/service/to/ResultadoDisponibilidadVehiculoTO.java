@@ -2,8 +2,9 @@ package com.proyecto.web.service.to;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
-public class ParametrosBuscarVehiculoTO implements Serializable{
+public class ResultadoDisponibilidadVehiculoTO implements Serializable{
 
 	/**
 	 * 
@@ -26,6 +27,10 @@ public class ParametrosBuscarVehiculoTO implements Serializable{
 
 	public void setValorTotalPagar(BigDecimal valorTotalPagar) {
 		this.valorTotalPagar = valorTotalPagar;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 

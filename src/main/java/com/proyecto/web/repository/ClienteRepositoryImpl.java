@@ -32,7 +32,6 @@ public class ClienteRepositoryImpl implements IClienteRepository{
 		TypedQuery<Cliente> myQuery = this.entityManager
 				.createQuery("SELECT c FROM Cliente c WHERE c.cedula=:cedula", Cliente.class);
 		myQuery.setParameter("cedula", cedula);
-
 		return myQuery.getSingleResult();
 	}
 

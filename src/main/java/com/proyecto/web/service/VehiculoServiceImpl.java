@@ -12,9 +12,11 @@ import jakarta.transaction.Transactional.TxType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.web.repository.IReservaRepo;
 import com.proyecto.web.repository.IVehiculoRepo;
+import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @Service
@@ -22,6 +24,9 @@ public class VehiculoServiceImpl implements IVehiculoService {
 
 	@Autowired
 	private IVehiculoRepo iVehiculoRepo;
+
+	@Autowired
+	private IReservaRepo iReservaRepo;
 
 	@Override
 	@Transactional
@@ -81,11 +86,19 @@ public class VehiculoServiceImpl implements IVehiculoService {
 	}
 
 	@Override
-	public ParametrosBuscarVehiculoTO verificarDiponibilidad(String inicio, String fin, String placa) {
-		Vehiculo vehiculo = this.iVehiculoRepo.buscarPorPlaca(placa);
+	public ResultadoDisponibilidadVehiculoTO verificarDiponibilidad(String inicio, String fin, String placa) {
+		
+		ResultadoDisponibilidadVehiculoTO temp = new ResultadoDisponibilidadVehiculoTO();
+		Vehiculo vehiculo = this.buscarPorPlaca(placa);
 
-		ParametrosBuscarVehiculoTO temp = new ParametrosBuscarVehiculoTO();
-		temp.setEstado(vehiculo.getEstado());
+		List<Reserva> reservasFechasSolapadas = this.iReservaRepo.buscarPorReservasPorFecha(placa,
+				LocalDate.parse(inicio).atStartOfDay(), LocalDate.parse(fin).atStartOfDay());
+		
+		if (reservasFechasSolapadas.isEmpty() || reservasFechasSolapadas == null) {
+			temp.setEstado("D");
+		} else {
+			temp.setEstado("ND");
+		}
 		Integer dias = Period.between(LocalDate.parse(inicio), (LocalDate.parse(fin))).getDays();
 		BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));
 		BigDecimal valorIVA = (valorSubTotal.multiply(new BigDecimal(12))).divide(new BigDecimal(100));

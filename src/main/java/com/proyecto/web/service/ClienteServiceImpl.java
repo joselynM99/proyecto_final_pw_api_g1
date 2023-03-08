@@ -61,5 +61,10 @@ public class ClienteServiceImpl implements IClienteService{
 		return c;
 	}
 
+	@Override
+	public Cliente buscarPorCedula(String cedula) {
+		return this.clienteRepository.buscarPorCedula(cedula);
+	}
+
 
 }

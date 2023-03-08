@@ -1,6 +1,7 @@
 package com.proyecto.web.service.to;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ReporteReservasTO {
@@ -10,11 +11,11 @@ public class ReporteReservasTO {
 
 	private String numero;
 
-	private LocalDateTime fechaInicio;
+	private LocalDate fechaInicio;
 
-	private LocalDateTime fechaFinal;
+	private LocalDate fechaFinal;
 
-	private Character estado;
+	private String estado;
 
 	// 2 de clientes
 
@@ -35,9 +36,9 @@ public class ReporteReservasTO {
 	public ReporteReservasTO(Integer id, String numero, LocalDateTime fechaInicio, LocalDateTime fechaFinal,
 			Character estado, String apellido, String cedula, String placa, String marca, BigDecimal valorPorDia) {
 		this.numero = numero;
-		this.fechaInicio = fechaInicio;
-		this.fechaFinal = fechaFinal;
-		this.estado = estado;
+		this.fechaInicio = fechaInicio.toLocalDate();
+		this.fechaFinal = fechaFinal.toLocalDate();
+		this.estado = (estado=='G')?"Generada":"Ejecutada";
 		this.id = id;
 		this.apellido = apellido;
 		this.cedula = cedula;
@@ -55,27 +56,27 @@ public class ReporteReservasTO {
 		this.numero = numero;
 	}
 
-	public LocalDateTime getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(LocalDateTime fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public LocalDateTime getFechaFinal() {
+	public LocalDate getFechaFinal() {
 		return fechaFinal;
 	}
 
-	public void setFechaFinal(LocalDateTime fechaFinal) {
+	public void setFechaFinal(LocalDate fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
 
-	public Character getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Character estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

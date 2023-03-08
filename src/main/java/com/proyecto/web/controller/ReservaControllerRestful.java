@@ -26,12 +26,12 @@ public class ReservaControllerRestful {
 	@Autowired
 	private IReservaService iReservaService;
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	private RespuestaReservaTO registrarReserva(@RequestBody ReservaTO reservaTO) {
 		return this.iReservaService.registrarReserva(reservaTO);
 	}
 	
-	@GetMapping()
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	private List<ReporteReservasTO> reporteReservasFechas(@RequestParam("inicio") String inicio,
 			@RequestParam("fin") String fin) {
 		return this.iReservaService.reporteReservas(LocalDate.parse(inicio), LocalDate.parse(fin));

@@ -16,7 +16,7 @@ import com.proyecto.web.repository.model.Cliente;
 import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.ReporteReservasTO;
 import com.proyecto.web.service.to.ReservaTO;
 import com.proyecto.web.service.to.RespuestaReservaTO;
@@ -70,18 +70,20 @@ public class ReservaServiceImpl implements IReservaService {
 	@Override
 	public RespuestaReservaTO registrarReserva(ReservaTO reservaTO) {
 
-		String codigoReserva = reservaTO.getPlaca() + "--" + reservaTO.getFechaInicio() + "--"
+		String codigoReserva = reservaTO.getPlaca() + "-" + reservaTO.getFechaInicio() + "-"
 				+ reservaTO.getFechaFinal();
 
-		Cliente cliente = new Cliente();
-
+		Cliente cliente = this.iClienteService.buscarPorCedula(reservaTO.getCedula());
+		Vehiculo vehiculo = this.iVehiculoService.buscarPorPlaca(reservaTO.getPlaca());
+		
 		Reserva reserva = new Reserva();
 		reserva.setEstado('G');
 		reserva.setFechaFinal(reservaTO.getFechaFinal().atStartOfDay());
 		reserva.setFechaInicio(reservaTO.getFechaInicio().atStartOfDay());
 		reserva.setNumero(codigoReserva);
+		reserva.setClienteReserva(cliente);
+		reserva.setVehiculoReservado(vehiculo);
 
-		Vehiculo vehiculo = this.iVehiculoService.buscarPorPlaca(reservaTO.getPlaca());
 		Integer dias = Period.between(reservaTO.getFechaInicio(), reservaTO.getFechaFinal()).getDays();
 		BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));
 		BigDecimal valorIVA = (valorSubTotal.multiply(new BigDecimal(12))).divide(new BigDecimal(100));
@@ -108,5 +110,11 @@ public class ReservaServiceImpl implements IReservaService {
 	public List<ReporteReservasTO> reporteReservas(LocalDate fechaInicio, LocalDate fechaFinal) {
 		return this.iReservaRepo.reporteReservas(fechaInicio.atStartOfDay(), fechaFinal.atStartOfDay());
 	}
+
+	@Override
+	public List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+		return this.iReservaRepo.buscarPorReservasPorFecha(placa, fechaInicio, fechaFin);
+	}
+
 
 }
