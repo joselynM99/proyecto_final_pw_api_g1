@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.TO.ReservaTO;
+import com.proyecto.web.service.to.ReservaTO;
 
 public interface IReservaService {
 

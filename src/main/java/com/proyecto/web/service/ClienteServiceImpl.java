@@ -7,47 +7,103 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.web.repository.IClienteRepo;
 import com.proyecto.web.repository.model.Cliente;
+import com.proyecto.web.service.to.ClienteActualizarTO;
+import com.proyecto.web.service.to.ClienteTO;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
-	private IClienteRepo iClienteRepo;
-	
+	private IClienteRepo clienteRepository;
+
 	@Override
-	public void insertar(Cliente cliente) {
-		// TODO Auto-generated method stub
-		this.iClienteRepo.insertar(cliente);
+	public void registrar(ClienteTO cliente) {
+		this.clienteRepository.insertar(this.convertirClienteTOACliente(cliente));
 	}
 
 	@Override
+	public void actualizar(ClienteActualizarTO cliente) {
+		this.clienteRepository.actualizar(this.convertirClienteActualizarTOACliente(cliente));
+		
+	}
+	@Override
+	public ClienteActualizarTO encontrarPorCedula(String cedula) {
+		
+		if(this.clienteRepository.buscarPorCedula(cedula)==null) {
+			return null;
+		}else {
+			return this.convertirClienteAClienteActualizarTO(this.clienteRepository.buscarPorCedula(cedula));
+		}
+		
+	}
+	
+
+	@Override
 	public void actualizar(Cliente cliente) {
-		// TODO Auto-generated method stub
-		this.iClienteRepo.actualizar(cliente);
+		this.clienteRepository.actualizar(cliente);
 	}
 
 	@Override
 	public Cliente buscar(Integer id) {
-		// TODO Auto-generated method stub
-		return this.iClienteRepo.buscar(id);
+		return this.clienteRepository.buscar(id);
 	}
 
 	@Override
 	public void borrar(Integer id) {
-		// TODO Auto-generated method stub
-		this.iClienteRepo.borrar(id);
+		this.clienteRepository.borrar(id);
 	}
 
 	@Override
 	public List<Cliente> buscarPorApellido(String apellido) {
 		// TODO Auto-generated method stub
-		return this.iClienteRepo.buscarPorApellido(apellido);
+		return this.clienteRepository.buscarPorApellido(apellido);
 	}
 
-	@Override
-	public void borrarPorApellido(String apellido) {
-		// TODO Auto-generated method stub
-		this.iClienteRepo.borrarPorApellido(apellido);
+
+	private ClienteTO convertirClienteAClienteTO(Cliente cliente) {
+		ClienteTO c = new ClienteTO();
+		c.setApellido(cliente.getApellido());
+		c.setCedula(cliente.getCedula());
+		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setGenero(cliente.getGenero());
+		c.setNombre(cliente.getNombre());
+		c.setTipoRegistro(cliente.getTipoRegistro());
+		return c;
+	}
+	
+	private Cliente convertirClienteTOACliente(ClienteTO cliente) {
+		Cliente c = new Cliente();
+		c.setApellido(cliente.getApellido());
+		c.setCedula(cliente.getCedula());
+		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setGenero(cliente.getGenero());
+		c.setNombre(cliente.getNombre());
+		c.setTipoRegistro(cliente.getTipoRegistro());
+		return c;
+	}
+	
+	private Cliente convertirClienteActualizarTOACliente(ClienteActualizarTO cliente) {
+		Cliente c = new Cliente();
+		c.setApellido(cliente.getApellido());
+		c.setCedula(cliente.getCedula());
+		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setGenero(cliente.getGenero());
+		c.setNombre(cliente.getNombre());
+		c.setTipoRegistro(cliente.getTipoRegistro());
+		c.setId(cliente.getId());
+		return c;
+	}
+	
+	private ClienteActualizarTO convertirClienteAClienteActualizarTO(Cliente cliente) {
+		ClienteActualizarTO c = new ClienteActualizarTO();
+		c.setApellido(cliente.getApellido());
+		c.setCedula(cliente.getCedula());
+		c.setFechaNacimiento(cliente.getFechaNacimiento());
+		c.setGenero(cliente.getGenero());
+		c.setNombre(cliente.getNombre());
+		c.setTipoRegistro(cliente.getTipoRegistro());
+		c.setId(cliente.getId());
+		return c;
 	}
 
 }

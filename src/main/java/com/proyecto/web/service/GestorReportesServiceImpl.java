@@ -1,7 +1,9 @@
 package com.proyecto.web.service;
 
+import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,8 +12,12 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.web.repository.IClienteRepo;
+import com.proyecto.web.repository.model.Cliente;
+import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
-import com.proyecto.web.service.TO.VehiculoVip;
+import com.proyecto.web.service.to.ClienteVIPTO;
+import com.proyecto.web.service.to.VehiculoVip;
 
 @Service
 public class GestorReportesServiceImpl implements IGestorReportesService {
@@ -19,9 +25,47 @@ public class GestorReportesServiceImpl implements IGestorReportesService {
 	@Autowired
 	private IReservaService iReservaService;
 	
+	@Autowired
+	private IClienteRepo clienteRepository;
+
+	@Override
+	public List<ClienteVIPTO> buscarClientesVIP() {
+
+		List<ClienteVIPTO> listaF = new ArrayList<>();
+
+		List<Cliente> clientes = this.clienteRepository.buscarPagosClientes();
+
+		for (Cliente c : clientes) {
+			ClienteVIPTO clie = new ClienteVIPTO();
+			clie.setApellido(c.getApellido());
+			clie.setCedula(c.getCedula());
+			clie.setNombre(c.getNombre());
+
+			List<Reserva> reservas = c.getReservas();
+			BigDecimal totalIva = new BigDecimal(0);
+			BigDecimal valorTotal = new BigDecimal(0);
+
+			for (Reserva r : reservas) {
+				Pago pago = r.getPagos();
+
+				totalIva = totalIva.add(pago.getValorIVA());
+				valorTotal = valorTotal.add(pago.getValorTotalAPagar());
+			}
+
+			clie.setValorIVA(totalIva);
+			clie.setValorTotal(valorTotal);
+			
+			listaF.add(clie);
+
+		}
+
+		return listaF.stream()
+			    .sorted(Comparator.comparing(ClienteVIPTO::getValorTotal).reversed())
+			    .collect(Collectors.toList());
+	}
+	
 	@Override
 	public List<VehiculoVip> reporteVehiculoVip(Month mes, Year anio) {
-		// TODO Auto-generated method stub
 		List<Reserva> listaTodos = this.iReservaService.todasReservas();
 		int anioComparar = anio.getValue();
 		int mesComparar = mes.getValue();

@@ -15,8 +15,8 @@ import com.proyecto.web.repository.IReservaRepo;
 import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.TO.ParametrosBuscarVehiculoTO;
-import com.proyecto.web.service.TO.ReservaTO;
+import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ReservaTO;
 
 @Service
 public class ReservaServiceImpl implements IReservaService {

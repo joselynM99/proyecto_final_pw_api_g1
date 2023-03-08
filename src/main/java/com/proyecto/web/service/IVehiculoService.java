@@ -3,8 +3,8 @@ package com.proyecto.web.service;
 import java.util.List;
 
 import com.proyecto.web.repository.model.Vehiculo;
-import com.proyecto.web.service.TO.ParametrosBuscarVehiculoTO;
-import com.proyecto.web.service.TO.VehiculoDisponiblesTO;
+import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 public interface IVehiculoService {
 
