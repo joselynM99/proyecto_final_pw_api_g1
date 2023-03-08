@@ -39,10 +39,17 @@ public class GestorEmpleadoServiceImpl implements IGestorEmpleadoService {
 	}
 
 	@Override
-	public void eliminarCliente(Cliente cliente) {
+	public void eliminarClienteId(Integer id) {
 		// TODO Auto-generated method stub
-		Integer id=cliente.getId();
 		this.iClienteService.borrar(id);
 	}
+
+	@Override
+	public Cliente buscarPorId(Integer id) {
+		// TODO Auto-generated method stub
+		return this.iClienteService.buscar(id);
+	}
+
+	
 
 }

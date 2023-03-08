@@ -3,6 +3,7 @@ package com.proyecto.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,44 +18,71 @@ import com.proyecto.web.repository.model.Vehiculo;
 import com.proyecto.web.service.IGestorEmpleadoService;
 
 @RestController
+@CrossOrigin("http://localhost:8080/")
 @RequestMapping("/empleados")
+
 public class EmpleadoRestfulController {
 
 	@Autowired
 	private IGestorEmpleadoService iGestorEmpleadoService;
-	
-	//Insertar vehiculo
 
-	@PostMapping(path="/vehiculo",consumes ={ MediaType.APPLICATION_JSON_VALUE } )
-	public void insertarVehiculo(@RequestBody Vehiculo vehiculo) {
-		this.iGestorEmpleadoService.ingresarVehiculo(vehiculo);
+	// Insertar vehiculo
+
+	@PostMapping(path = "/vehiculoNuevo", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public String insertarVehiculo(@RequestBody Vehiculo vehiculo) {
+		String msj = "Vehiculo ingresado correctamente";
+		try {
+			this.iGestorEmpleadoService.ingresarVehiculo(vehiculo);
+		} catch (Exception e) {
+			msj = "Error al ingresar el vehiculo" + e;
+		}
+
+		return msj;
+
 	}
-	
-	
-	// Jorgee empiezaa
-	//Buscar Cliente
-	
-	
-	//Lista de Empleados
-	@GetMapping(path = "/{apellido}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<Cliente> buscarClientes(@PathVariable("apellido")String apellido){
-		
+
+
+	// Buscar Cliente
+
+	@GetMapping(path = "/clientes/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Cliente buscarClientePorId(@PathVariable("id") Integer id) {
+
+		return this.iGestorEmpleadoService.buscarPorId(id);
+	}
+
+	// Lista de Clientes por Apellido
+	@GetMapping(path = "/listaClientes/{apellido}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public List<Cliente> buscarClientes(@PathVariable("apellido") String apellido) {
+
 		return this.iGestorEmpleadoService.buscarPorApellido(apellido);
 	}
-	
-	
-	//Actualizar Cliente
-	@PutMapping(path="/{id}",consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public void actualizarCliente(@PathVariable("id") Integer id, @RequestBody Cliente cliente) {
-		cliente.setId(id);
-		this.iGestorEmpleadoService.actualizarCliente(cliente);
-	}
-	
-	//Eliminar Cliente
-	@DeleteMapping(path="/id")
-	public void eliminarCliente(@RequestBody Cliente cliente) {
-		this.iGestorEmpleadoService.eliminarCliente(cliente);
+
+	// Actualizar Cliente
+	@PutMapping(path="/clientes",consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public String actualizarCliente(@RequestBody Cliente cliente) {
+		String msj = "Cliente actualizado correctamente";
+		try {
+			this.iGestorEmpleadoService.actualizarCliente(cliente);
+		} catch (Exception e) {
+			msj = "Error al actualizar cliente" + e;
+		}
+
+		return msj;
+
 	}
 
-	// Jorge termina
+	// Eliminar Cliente
+	@DeleteMapping(path = "/clientes/{id}")
+	public String eliminarCliente(@PathVariable("id") Integer id) {
+		String msj = "Cliente eliminado correctamente";
+		try {
+			this.iGestorEmpleadoService.eliminarClienteId(id);
+		} catch (Exception e) {
+			msj = "Error al eliminar cliente" + e;
+		}
+
+		return msj;
+
+	}
+
 }

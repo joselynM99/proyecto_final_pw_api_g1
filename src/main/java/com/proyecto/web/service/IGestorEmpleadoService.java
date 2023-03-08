@@ -12,6 +12,8 @@ public void ingresarVehiculo(Vehiculo vehiculo);
 	public List<Cliente> buscarPorApellido(String apellido);
 	
 	public void actualizarCliente(Cliente cliente);
+		
+	public void eliminarClienteId(Integer id);
 	
-	public void eliminarCliente(Cliente cliente);
+	public Cliente buscarPorId(Integer id);
 }
