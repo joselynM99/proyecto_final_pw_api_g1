@@ -1,5 +1,6 @@
 package com.proyecto.web.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,17 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public void actualizar(Cliente cliente) {
-		this.clienteRepository.actualizar(cliente);
+	public void actualizar(ClienteTO cliente) {
+		Cliente aux=convertirClienteTOACliente(cliente);
+		this.clienteRepository.actualizar(aux);
 	}
 
 	@Override
-	public Cliente buscar(Integer id) {
-		return this.clienteRepository.buscar(id);
+	public ClienteActualizarTO buscar(Integer id) {
+		
+		Cliente cliente=this.clienteRepository.buscar(id);
+		ClienteActualizarTO aux=convertirClienteAClienteActualizarTO(cliente);
+		return aux;
 	}
 
 	@Override
@@ -62,9 +67,17 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public List<Cliente> buscarPorApellido(String apellido) {
+	public List<ClienteActualizarTO> buscarPorApellido(String apellido) {
 		// TODO Auto-generated method stub
-		return this.clienteRepository.buscarPorApellido(apellido);
+		
+		List<Cliente> lista=this.clienteRepository.buscarPorApellido(apellido);
+		List<ClienteActualizarTO> listaDos=new ArrayList<>();
+		for(Cliente aux: lista) {
+			ClienteActualizarTO aux2=convertirClienteAClienteActualizarTO(aux);
+			listaDos.add(aux2);
+		}
+		
+		return listaDos;
 	}
 
 	private ClienteTO convertirClienteAClienteTO(Cliente cliente) {

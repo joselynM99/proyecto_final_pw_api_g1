@@ -2,18 +2,18 @@ package com.proyecto.web.service;
 
 import java.util.List;
 
-import com.proyecto.web.repository.model.Cliente;
-import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.to.ClienteActualizarTO;
+import com.proyecto.web.service.to.VehiculoTO;
 
 public interface IGestorEmpleadoService {
 
-public void ingresarVehiculo(Vehiculo vehiculo);
-	
-	public List<Cliente> buscarPorApellido(String apellido);
-	
-	public void actualizarCliente(Cliente cliente);
-		
+	public void ingresarVehiculo(VehiculoTO vehiculo);
+
+	public List<ClienteActualizarTO> buscarPorApellido(String apellido);
+
+	public void actualizarCliente(ClienteActualizarTO cliente);
+
 	public void eliminarClienteId(Integer id);
-	
-	public Cliente buscarPorId(Integer id);
+
+	public ClienteActualizarTO buscarPorId(Integer id);
 }

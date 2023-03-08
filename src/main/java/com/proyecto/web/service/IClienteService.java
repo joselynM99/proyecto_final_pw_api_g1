@@ -14,13 +14,13 @@ public interface IClienteService {
 
 	ClienteActualizarTO encontrarPorCedula(String cedula);
 
-	void actualizar(Cliente cliente);
+	void actualizar(ClienteTO cliente);
 
-	Cliente buscar(Integer id);
+	ClienteActualizarTO buscar(Integer id);
 
 	void borrar(Integer id);
 
-	List<Cliente> buscarPorApellido(String apellido);
+	List<ClienteActualizarTO> buscarPorApellido(String apellido);
 
 	Cliente buscarPorCedulaCliente(String cedula);
 

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.web.service.IGestorReportesService;
 import com.proyecto.web.service.to.ClienteVIPTO;
+
+import com.proyecto.web.service.to.VehiculoVipTO;
+
 import com.proyecto.web.service.to.ReporteReservasTO;
-import com.proyecto.web.service.to.VehiculoVip;
+
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -34,11 +37,11 @@ public class ReportesRestfulController {
 	
 
 	@GetMapping(path = "/VehiculoVip", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<VehiculoVip> vehiculoVip(@RequestParam ("fechaInicio") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate fechaInicio){
+	public List<VehiculoVipTO> vehiculoVip(@RequestParam ("fechaInicio") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate fechaInicio){
 		Month mes=fechaInicio.getMonth();
 		int anio= fechaInicio.getYear();
 		
-		List<VehiculoVip> listaVehiculoVip= this.iGestorReportesService.reporteVehiculoVip(mes, Year.of(anio));
+		List<VehiculoVipTO> listaVehiculoVip= this.iGestorReportesService.reporteVehiculoVip(mes, Year.of(anio));
 		return listaVehiculoVip;
 	}
 	

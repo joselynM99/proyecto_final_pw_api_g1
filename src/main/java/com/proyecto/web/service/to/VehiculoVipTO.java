@@ -2,7 +2,7 @@ package com.proyecto.web.service.to;
 
 import java.math.BigDecimal;
 
-public class VehiculoVip {
+public class VehiculoVipTO {
 
 private Integer id;
 	
@@ -16,12 +16,12 @@ private Integer id;
 	
 	private BigDecimal valorTotal;
 
-	public VehiculoVip() {
+	public VehiculoVipTO() {
 		
 	}
 	
 	
-	public VehiculoVip(Integer id, String placa, String marca, String modelo, BigDecimal valorSubtotal,
+	public VehiculoVipTO(Integer id, String placa, String marca, String modelo, BigDecimal valorSubtotal,
 			BigDecimal valorTotal) {
 		super();
 		this.id = id;

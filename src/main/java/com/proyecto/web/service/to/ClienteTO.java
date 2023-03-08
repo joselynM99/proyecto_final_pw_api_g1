@@ -14,6 +14,7 @@ public class ClienteTO extends RepresentationModel<ClienteTO> implements Seriali
 	 */
 	private static final long serialVersionUID = 1L;
 	
+		
 	private String nombre;
 
 	private String apellido;

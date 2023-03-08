@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.web.repository.model.Cliente;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.to.ClienteActualizarTO;
+import com.proyecto.web.service.to.VehiculoTO;
 
 @Service
 public class GestorEmpleadoServiceImpl implements IGestorEmpleadoService {
@@ -18,22 +19,22 @@ public class GestorEmpleadoServiceImpl implements IGestorEmpleadoService {
 	private IClienteService iClienteService;
 	
 	@Override
-	public void ingresarVehiculo(Vehiculo vehiculo) {
+	public void ingresarVehiculo(VehiculoTO vehiculo) {
 		// TODO Auto-generated method stub
-		Vehiculo vehiculo1=vehiculo;
+		VehiculoTO vehiculo1=vehiculo;
 		vehiculo1.setEstado("D");
 		this.iVehiculoService.insertar(vehiculo1);		
 		
 	}
 
 	@Override
-	public List<Cliente> buscarPorApellido(String apellido) {
+	public List<ClienteActualizarTO> buscarPorApellido(String apellido) {
 		// TODO Auto-generated method stub
 		return this.iClienteService.buscarPorApellido(apellido);
 	}
 
 	@Override
-	public void actualizarCliente(Cliente cliente) {
+	public void actualizarCliente(ClienteActualizarTO cliente) {
 		// TODO Auto-generated method stub
 		this.iClienteService.actualizar(cliente);
 	}
@@ -45,7 +46,7 @@ public class GestorEmpleadoServiceImpl implements IGestorEmpleadoService {
 	}
 
 	@Override
-	public Cliente buscarPorId(Integer id) {
+	public ClienteActualizarTO buscarPorId(Integer id) {
 		// TODO Auto-generated method stub
 		return this.iClienteService.buscar(id);
 	}
