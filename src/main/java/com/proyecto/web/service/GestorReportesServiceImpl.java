@@ -1,6 +1,7 @@
 package com.proyecto.web.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
@@ -17,7 +18,11 @@ import com.proyecto.web.repository.model.Cliente;
 import com.proyecto.web.repository.model.Pago;
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.service.to.ClienteVIPTO;
+
 import com.proyecto.web.service.to.VehiculoVipTO;
+
+import com.proyecto.web.service.to.ReporteReservasTO;
+
 
 @Service
 public class GestorReportesServiceImpl implements IGestorReportesService {
@@ -100,6 +105,11 @@ public class GestorReportesServiceImpl implements IGestorReportesService {
 				.map(vehiculo->vehiculo.get()).sorted(Comparator.comparing(VehiculoVipTO::getValorTotal).reversed())
 				.collect(Collectors.toList());
 		return listaReducida;
+	}
+
+	@Override
+	public List<ReporteReservasTO> reporteReservas(LocalDate fechaInicio, LocalDate fechaFinal) {
+		return this.iReservaService.reporteReservas(fechaInicio.atStartOfDay(), fechaFinal.atStartOfDay());
 	}
 
 }

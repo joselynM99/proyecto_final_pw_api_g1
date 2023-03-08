@@ -19,8 +19,9 @@ import com.proyecto.web.service.IReservaService;
 import com.proyecto.web.service.IVehiculoService;
 import com.proyecto.web.service.to.ClienteActualizarTO;
 import com.proyecto.web.service.to.ClienteTO;
-import com.proyecto.web.service.to.ParametrosBuscarVehiculoTO;
+import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.ReservaTO;
+import com.proyecto.web.service.to.RespuestaReservaTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @RestController
@@ -52,11 +53,11 @@ public class ClienteRestfulController {
 		return this.clienteService.encontrarPorCedula(cedula);
 	}
 	
-
-	@PostMapping(path = "/reservas")
-	private void registrarReserva(@RequestBody ReservaTO reservaTO) {
-		this.iReservasService.registrarReserva(reservaTO);
+	@PostMapping(path = "/reservas",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	private RespuestaReservaTO registrarReserva(@RequestBody ReservaTO reservaTO) {
+		return this.iReservasService.registrarReserva(reservaTO);
 	}
+	
 
 	@GetMapping(path = "/vehiculos")
 	private List<VehiculoDisponiblesTO> vehiculosDisponibles(@RequestParam("marca") String marca,
@@ -75,7 +76,7 @@ public class ClienteRestfulController {
 	}
 
 	@GetMapping(path = "/vehiculos/porPlaca/{placa}")
-	private ParametrosBuscarVehiculoTO verificarDisponibilidad(@PathVariable("placa") String placa,
+	private ResultadoDisponibilidadVehiculoTO verificarDisponibilidad(@PathVariable("placa") String placa,
 			@RequestParam("inicio") String inicio, @RequestParam("fin") String fin) {
 		return this.iVehiculoService.verificarDiponibilidad(inicio, fin, placa);
 	}

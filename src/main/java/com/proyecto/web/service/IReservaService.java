@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
+import com.proyecto.web.service.to.ReporteReservasTO;
 import com.proyecto.web.service.to.ReservaTO;
+import com.proyecto.web.service.to.RespuestaReservaTO;
 
 public interface IReservaService {
 
@@ -23,6 +25,10 @@ public interface IReservaService {
 
 	List<Reserva> todasReservas();
 
-	void registrarReserva(ReservaTO reservaTO);
+	RespuestaReservaTO registrarReserva(ReservaTO reservaTO);
+
+	List<ReporteReservasTO> reporteReservas(LocalDateTime atStartOfDay, LocalDateTime atStartOfDay2);
+
+	List<Reserva> buscarPorReservasPorFecha(String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
 }

@@ -36,6 +36,11 @@ public class ClienteServiceImpl implements IClienteService {
 			return this.convertirClienteAClienteActualizarTO(this.clienteRepository.buscarPorCedula(cedula));
 		}
 		
+	} 
+	
+	@Override
+	public Cliente buscarPorCedulaCliente(String cedula) {
+		return this.clienteRepository.buscarPorCedula(cedula);
 	}
 	
 	

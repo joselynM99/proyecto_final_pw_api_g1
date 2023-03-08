@@ -22,6 +22,6 @@ public interface IClienteService {
 
 	List<ClienteActualizarTO> buscarPorApellido(String apellido);
 
-	// CRUD
-	
+	Cliente buscarPorCedulaCliente(String cedula);
+
 }
