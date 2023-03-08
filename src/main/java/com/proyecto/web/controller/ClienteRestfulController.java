@@ -21,6 +21,7 @@ import com.proyecto.web.service.to.ClienteActualizarTO;
 import com.proyecto.web.service.to.ClienteTO;
 import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.ReservaTO;
+import com.proyecto.web.service.to.RespuestaReservaTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
 
 @RestController
@@ -52,11 +53,11 @@ public class ClienteRestfulController {
 		return this.clienteService.encontrarPorCedula(cedula);
 	}
 	
-	@PostMapping(path = "/reservas")
-	private void registrarReserva(@RequestBody ReservaTO reservaTO) {
-		System.out.println(reservaTO.getTarjeta());
-		this.iReservasService.registrarReserva(reservaTO);
+	@PostMapping(path = "/reservas",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	private RespuestaReservaTO registrarReserva(@RequestBody ReservaTO reservaTO) {
+		return this.iReservasService.registrarReserva(reservaTO);
 	}
+	
 
 	@GetMapping(path = "/vehiculos")
 	private List<VehiculoDisponiblesTO> vehiculosDisponibles(@RequestParam("marca") String marca,

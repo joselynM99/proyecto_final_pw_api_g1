@@ -28,5 +28,8 @@ public class ResultadoDisponibilidadVehiculoTO implements Serializable{
 		this.valorTotalPagar = valorTotalPagar;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }
