@@ -6,7 +6,6 @@ import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,28 +87,33 @@ public class VehiculoServiceImpl implements IVehiculoService {
 
 	@Override
 	public ResultadoDisponibilidadVehiculoTO verificarDiponibilidad(String inicio, String fin, String placa) {
+		try {
+			ResultadoDisponibilidadVehiculoTO temp = new ResultadoDisponibilidadVehiculoTO();
+			Vehiculo vehiculo = this.buscarPorPlaca(placa);
 
-		ResultadoDisponibilidadVehiculoTO temp = new ResultadoDisponibilidadVehiculoTO();
-		Vehiculo vehiculo = this.buscarPorPlaca(placa);
+			List<Reserva> reservasFechasSolapadas = this.iReservaRepo.buscarPorReservasPorFecha(placa,
+					LocalDate.parse(inicio).atStartOfDay(), LocalDate.parse(fin).atStartOfDay());
 
-		List<Reserva> reservasFechasSolapadas = this.iReservaRepo.buscarPorReservasPorFecha(placa,
-				LocalDate.parse(inicio).atStartOfDay(), LocalDate.parse(fin).atStartOfDay());
-
-		if (reservasFechasSolapadas.isEmpty() || reservasFechasSolapadas == null) {
-			temp.setEstado("D");
-		} else {
+			if (reservasFechasSolapadas.isEmpty() || reservasFechasSolapadas == null) {
+				temp.setEstado("D");
+			} else {
+				temp.setEstado("ND");
+			}
+			Integer dias = Period.between(LocalDate.parse(inicio), (LocalDate.parse(fin))).getDays();
+			BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));
+			BigDecimal valorIVA = (valorSubTotal.multiply(new BigDecimal(12))).divide(new BigDecimal(100));
+			BigDecimal valorTotalAPagar = valorSubTotal.add(valorIVA);
+			temp.setValorTotalPagar(valorTotalAPagar);
+			return temp;
+		} catch (Exception e) {
+			ResultadoDisponibilidadVehiculoTO temp = new ResultadoDisponibilidadVehiculoTO();
 			temp.setEstado("ND");
+			return temp;
 		}
-		Integer dias = Period.between(LocalDate.parse(inicio), (LocalDate.parse(fin))).getDays();
-		BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));
-		BigDecimal valorIVA = (valorSubTotal.multiply(new BigDecimal(12))).divide(new BigDecimal(100));
-		BigDecimal valorTotalAPagar = valorSubTotal.add(valorIVA);
-		temp.setValorTotalPagar(valorTotalAPagar);
-		return temp;
 	}
-	
+
 	private Vehiculo convertirVehiculoTOAVehiculo(VehiculoTO vehiculo) {
-		Vehiculo vehiculo1=new Vehiculo();
+		Vehiculo vehiculo1 = new Vehiculo();
 		vehiculo1.setAnioFabricacion(vehiculo.getAnioFabricacion());
 		vehiculo1.setAvaluo(vehiculo.getAvaluo());
 		vehiculo1.setCilindraje(vehiculo.getCilindraje());
@@ -120,8 +124,8 @@ public class VehiculoServiceImpl implements IVehiculoService {
 		vehiculo1.setPais(vehiculo.getPais());
 		vehiculo1.setPlaca(vehiculo.getPlaca());
 		vehiculo1.setValorPorDia(vehiculo.getValorPorDia());
-		
+
 		return vehiculo1;
-		
+
 	}
 }
