@@ -16,6 +16,7 @@ import com.proyecto.web.repository.model.Reserva;
 import com.proyecto.web.repository.model.Vehiculo;
 import com.proyecto.web.service.to.ResultadoDisponibilidadVehiculoTO;
 import com.proyecto.web.service.to.VehiculoDisponiblesTO;
+import com.proyecto.web.service.to.VehiculoReservadoTo;
 import com.proyecto.web.service.to.VehiculoTO;
 
 import jakarta.transaction.Transactional;
@@ -107,9 +108,36 @@ public class VehiculoServiceImpl implements IVehiculoService {
 		temp.setValorTotalPagar(valorTotalAPagar);
 		return temp;
 	}
+
+	@Override
+	public List<VehiculoTO> buscarVehiculosPorMarca(String marca) {
+		return this.iVehiculoRepo.buscarVehiculosPorMarca(marca).stream().map(vehiculo -> this.convertirVehiculoAVehiculoTo(vehiculo)).collect(Collectors.toList());
+	}
+
+	@Override
+	public VehiculoReservadoTo buscarVehiculoPorNumeroDeReserva(String numero) {
+		return this.iVehiculoRepo.buscarVehiculoPorNumeroDeReserva(numero);
+    }
 	
 	private Vehiculo convertirVehiculoTOAVehiculo(VehiculoTO vehiculo) {
 		Vehiculo vehiculo1=new Vehiculo();
+		vehiculo1.setAnioFabricacion(vehiculo.getAnioFabricacion());
+		vehiculo1.setAvaluo(vehiculo.getAvaluo());
+		vehiculo1.setCilindraje(vehiculo.getCilindraje());
+		vehiculo1.setEstado(vehiculo.getEstado());
+		vehiculo1.setId(vehiculo.getId());
+		vehiculo1.setMarca(vehiculo.getMarca());
+		vehiculo1.setModelo(vehiculo.getModelo());
+		vehiculo1.setPais(vehiculo.getPais());
+		vehiculo1.setPlaca(vehiculo.getPlaca());
+		vehiculo1.setValorPorDia(vehiculo.getValorPorDia());
+		
+		return vehiculo1;
+		
+	}
+
+	private VehiculoTO convertirVehiculoAVehiculoTo(Vehiculo vehiculo) {
+		VehiculoTO vehiculo1 = new VehiculoTO();
 		vehiculo1.setAnioFabricacion(vehiculo.getAnioFabricacion());
 		vehiculo1.setAvaluo(vehiculo.getAvaluo());
 		vehiculo1.setCilindraje(vehiculo.getCilindraje());
