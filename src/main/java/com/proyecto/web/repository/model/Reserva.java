@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,15 +41,18 @@ public class Reserva {
 	@Column(name = "rese_estado")
 	private Character estado;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "clie_id")
 	private Cliente clienteReserva;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "vehi_id")
 	private Vehiculo vehiculoReservado;
 	
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pago_id")
 	private Pago pagos;

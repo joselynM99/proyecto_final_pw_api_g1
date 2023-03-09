@@ -3,7 +3,9 @@ package com.proyecto.web.service.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class VehiculoTO implements Serializable {
+import org.springframework.hateoas.RepresentationModel;
+
+public class VehiculoTO extends RepresentationModel<VehiculoTO> implements Serializable {
 	
 	/**
 	 * 
