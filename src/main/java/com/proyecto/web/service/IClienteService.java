@@ -8,9 +8,9 @@ import com.proyecto.web.service.to.ClienteTO;
 
 public interface IClienteService {
 
-	boolean registrar(ClienteTO cliente);
+	void registrar(ClienteTO cliente);
 
-	boolean actualizar(ClienteActualizarTO cliente);
+	void actualizar(ClienteActualizarTO cliente);
 
 	ClienteActualizarTO encontrarPorCedula(String cedula);
 
