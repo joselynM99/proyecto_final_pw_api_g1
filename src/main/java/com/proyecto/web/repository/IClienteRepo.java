@@ -19,9 +19,9 @@ public interface IClienteRepo {
 
 	List<Cliente> buscarPorApellido(String apellido);
 
-	void borrarPorApellido(String apellido);
-
 	Cliente buscarPorCedula(String cedula);
 
 	List<Cliente> buscarPagosClientes();
+
+	Cliente buscarPorCedulaParaReserva(String cedula);
 }

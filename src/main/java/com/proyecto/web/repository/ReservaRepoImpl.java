@@ -50,7 +50,6 @@ public class ReservaRepoImpl implements IReservaRepo {
 		return myQuery.getSingleResult();
 	}
 
-
 	@Override
 	public List<Reserva> buscarPorVehiculo(Vehiculo vehiculo) {
 		TypedQuery<Reserva> myQuery = this.entityManager
@@ -64,7 +63,7 @@ public class ReservaRepoImpl implements IReservaRepo {
 		TypedQuery<Reserva> myQuery = this.entityManager.createQuery("SELECT r  FROM Reserva r ", Reserva.class);
 		return myQuery.getResultList();
 	}
-	
+
 	@Override
 	public List<ReporteReservasTO> reporteReservas(LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
 		TypedQuery<ReporteReservasTO> myQuery = this.entityManager.createQuery(
@@ -83,9 +82,7 @@ public class ReservaRepoImpl implements IReservaRepo {
 				Reserva.class);
 
 		myQuery.setParameter("fechaInicio", fechaInicio);
-
 		myQuery.setParameter("placa", placa);
-
 		myQuery.setParameter("fechaFin", fechaFin);
 
 		return myQuery.getResultList();

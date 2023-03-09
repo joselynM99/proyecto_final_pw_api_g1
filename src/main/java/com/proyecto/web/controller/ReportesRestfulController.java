@@ -34,8 +34,6 @@ public class ReportesRestfulController {
 	@Autowired
 	private IGestorReportesService iGestorReportesService;
 	
-	
-
 	@GetMapping(path = "/VehiculoVip", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<VehiculoVipTO> vehiculoVip(@RequestParam ("fechaInicio") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate fechaInicio){
 		Month mes=fechaInicio.getMonth();
@@ -44,8 +42,6 @@ public class ReportesRestfulController {
 		List<VehiculoVipTO> listaVehiculoVip= this.iGestorReportesService.reporteVehiculoVip(mes, Year.of(anio));
 		return listaVehiculoVip;
 	}
-	
-	
 	
 	@GetMapping(path = "/clientesVIP", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ClienteVIPTO> reporteClientesVIP(){
@@ -60,7 +56,6 @@ public class ReportesRestfulController {
 		
 		return lista;
 	}
-	
 	
 	@GetMapping(path = "/reservas", produces = MediaType.APPLICATION_JSON_VALUE)
 	private List<ReporteReservasTO> reporteReservasFechas(@RequestParam("inicio") String inicio,

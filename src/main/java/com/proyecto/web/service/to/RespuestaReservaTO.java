@@ -1,6 +1,12 @@
 package com.proyecto.web.service.to;
 
-public class RespuestaReservaTO {
+import java.io.Serializable;
+
+public class RespuestaReservaTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String numeroReserva;
 
 	public String getNumeroReserva() {

@@ -59,23 +59,23 @@ public class ClienteRestfulController {
 	}
 	
 
-	@GetMapping(path = "/vehiculos")
+	@GetMapping(path = "/vehiculos",produces = MediaType.APPLICATION_JSON_VALUE)
 	private List<VehiculoDisponiblesTO> vehiculosDisponibles(@RequestParam("marca") String marca,
 			@RequestParam("modelo") String modelo) {
 		return this.iVehiculoService.buscarMarcaModelo(marca, modelo);
 	}
 
-	@GetMapping(path = "/vehiculos/marcas")
+	@GetMapping(path = "/vehiculos/marcas",produces = MediaType.APPLICATION_JSON_VALUE)
 	private List<String> todasMarcas() {
 		return this.iVehiculoService.todasMarcas();
 	}
 
-	@GetMapping(path = "/vehiculos/modelos")
+	@GetMapping(path = "/vehiculos/modelos",produces = MediaType.APPLICATION_JSON_VALUE)
 	private List<String> todosModelos() {
 		return this.iVehiculoService.todosModelos();
 	}
 
-	@GetMapping(path = "/vehiculos/porPlaca/{placa}")
+	@GetMapping(path = "/vehiculos/porPlaca/{placa}",produces = MediaType.APPLICATION_JSON_VALUE)
 	private ResultadoDisponibilidadVehiculoTO verificarDisponibilidad(@PathVariable("placa") String placa,
 			@RequestParam("inicio") String inicio, @RequestParam("fin") String fin) {
 		return this.iVehiculoService.verificarDiponibilidad(inicio, fin, placa);

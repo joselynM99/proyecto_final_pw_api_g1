@@ -58,11 +58,6 @@ public class ClienteRepoImpl implements IClienteRepo {
 		return myQuery.getResultList();
 	}
 
-	@Override
-	public void borrarPorApellido(String apellido) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Cliente buscarPorCedula(String cedula) {
@@ -76,6 +71,14 @@ public class ClienteRepoImpl implements IClienteRepo {
 
 			return null;
 		}
+	}
+
+	@Override
+	public Cliente buscarPorCedulaParaReserva(String cedula) {
+		TypedQuery<Cliente> myQuery = this.entityManager.createQuery("SELECT c FROM Cliente c WHERE c.cedula=:cedula",
+				Cliente.class);
+		myQuery.setParameter("cedula", cedula);
+		return myQuery.getSingleResult();
 	}
 
 	@Override

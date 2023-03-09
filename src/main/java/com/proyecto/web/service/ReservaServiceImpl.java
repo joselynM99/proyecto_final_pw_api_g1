@@ -71,7 +71,7 @@ public class ReservaServiceImpl implements IReservaService {
 		String codigoReserva = reservaTO.getPlaca() + "-" + reservaTO.getFechaInicio() + "-"
 				+ reservaTO.getFechaFinal();
 
-		Cliente cliente = this.iClienteService.buscarPorCedulaCliente(reservaTO.getCedula());
+		Cliente cliente = this.iClienteService.buscarPorCedulaParaReserva(reservaTO.getCedula());
 		Vehiculo vehiculo = this.iVehiculoService.buscarPorPlaca(reservaTO.getPlaca());
 		
 		Reserva reserva = new Reserva();

@@ -20,15 +20,11 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	public boolean registrar(ClienteTO cliente) {
 		return this.clienteRepository.insertar(this.convertirClienteTOACliente(cliente));
-
-		
 	}
 
 	@Override
 	public boolean actualizar(ClienteActualizarTO cliente) {
 		return this.clienteRepository.actualizar(this.convertirClienteActualizarTOACliente(cliente));
-		
-
 	}
 
 	@Override
@@ -43,8 +39,8 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public Cliente buscarPorCedulaCliente(String cedula) {
-		return this.clienteRepository.buscarPorCedula(cedula);
+	public Cliente buscarPorCedulaParaReserva(String cedula) {
+		return this.clienteRepository.buscarPorCedulaParaReserva(cedula);
 	}
 
 	@Override
@@ -68,7 +64,6 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public List<ClienteActualizarTO> buscarPorApellido(String apellido) {
-		// TODO Auto-generated method stub
 		
 		List<Cliente> lista=this.clienteRepository.buscarPorApellido(apellido);
 		List<ClienteActualizarTO> listaDos=new ArrayList<>();

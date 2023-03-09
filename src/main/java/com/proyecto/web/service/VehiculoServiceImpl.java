@@ -2,6 +2,7 @@ package com.proyecto.web.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,6 +99,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
 				temp.setEstado("D");
 			} else {
 				temp.setEstado("ND");
+				temp.setFechaDisponible(reservasFechasSolapadas.stream()
+						.map(r->r.getFechaFinal())
+						.max(LocalDateTime::compareTo).get()
+						.plusDays(1).toLocalDate());
 			}
 			Integer dias = Period.between(LocalDate.parse(inicio), (LocalDate.parse(fin))).getDays();
 			BigDecimal valorSubTotal = vehiculo.getValorPorDia().multiply(new BigDecimal(dias));

@@ -1,10 +1,15 @@
 package com.proyecto.web.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class ReservaTO {
+public class ReservaTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String placa;
 	private String cedula;
 	private LocalDate fechaInicio;

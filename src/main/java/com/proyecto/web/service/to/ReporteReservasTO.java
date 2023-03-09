@@ -1,10 +1,16 @@
 package com.proyecto.web.service.to;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class ReporteReservasTO {
+public class ReporteReservasTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// 5 de reserva
 	private Integer id;

@@ -22,6 +22,6 @@ public interface IClienteService {
 
 	List<ClienteActualizarTO> buscarPorApellido(String apellido);
 
-	Cliente buscarPorCedulaCliente(String cedula);
+	Cliente buscarPorCedulaParaReserva(String cedula);
 
 }
